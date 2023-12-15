@@ -1,12 +1,12 @@
 <div class="w-[588.9px] min-h-[149px] bg-edb099 font-inter shadow-2xl  text-white rounded-[25px] grid grid-cols-1">
   <div class="col-span-1 p-4">
-    <label for="nombre" class="block text-3xl pt-[27x] pb-6 pt-2 font-medium pl-[13px]">Lista Rápida</label>
+    <label for="nombre" class="block text-3xl pb-6 pt-2 font-medium pl-[13px]">Lista Rápida</label>
     <div class="flex-shrink">
       <input type="text" [formControl]="FormCtrl" (keydown.enter)="newTasks()" id="nombre"
         class="w-full h-[53px] text-black px-6 bg-slate-200 rounded-[30px] focus:outline-none focus:border-blue-500"
         placeholder="Ingresá tus tareas aquí" />
     </div>
-    <p *ngIf="tasks().length === 0; else emptyTasks" class="text-start mt-4 pl-[15px] pb-4 font-bold text">Lista vacía, nada que
+    <p *ngIf="tasks().length === 0; else emptyTasks" class="text-start text-lg mt-4 pl-[15px] pb-4 font-light text">Lista vacía, nada que
       mostrar por aquí</p>
     <ng-template #emptyTasks>
       <div class="md:container mx-auto mt-5">
