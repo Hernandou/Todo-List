@@ -19,6 +19,10 @@ export class TodolistComponent {
       completed: false
   }]);
 
+  constructor(){
+    this.tasks().pop()
+  }
+
   FormCtrl = new FormControl('',{
     // Validadores
     nonNullable : true,
