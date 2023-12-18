@@ -1,4 +1,4 @@
-<div class="w-[588.9px] min-h-[149px] bg-edb099 font-inter shadow-2xl  text-white rounded-[25px] grid grid-cols-1">
+<div class="md:container sm:w-full bg-edb099 font-inter shadow-2xl  text-white rounded-[25px] flex flex-row">
   <div class="col-span-1 p-4">
     <label for="nombre" class="block text-3xl pb-6 pt-2 font-medium pl-[13px]">Lista Rápida</label>
     <div class="flex-shrink">
@@ -9,22 +9,19 @@
     <p *ngIf="tasks().length === 0; else emptyTasks" class="text-start text-lg mt-4 pl-[15px] pb-4 font-light text">Lista vacía, nada que
       mostrar por aquí</p>
     <ng-template #emptyTasks>
-      <div class="md:container mx-auto mt-5">
+      <div class="md:container mt-5">
         <div class="grid grid-cols-2">
           <p class="text-sm font-bold pl-5">Nombre</p>
-          <p class="text-sm text-right font-bold pr-5">Finalizada</p>
         </div>
-        <ul class="divide-y divide-white list-none hover:list-disc">
-          <li *ngFor="let task of tasks(); let i=index" class="py-4 grid grid-cols-4"
-            (mouseover)="ShowElement(i)">
-            <div class="flex flex-col gap-1 mx-[15px] col-span-3">
+        <ul class="divide-y divide-white list-none">
+          <li *ngFor="let task of tasks(); let i=index" class="py-4 flex flex-row flex-wrap justify-between relative" (mouseover)="showElement(i)" (mouseleave) = "hideElement()">
+            <div class="flex flex-col gap-3 mx-[15px]" (click)="showHoursAndMinutes(i)">
               <p>{{ tasks()[i].taskname}}</p>
-              <p class="text-xs">{{tasks()[i].date.getHours() + ":" + tasks()[i].date.getMinutes()}}</p>
+              <p>{{showHoursAndMinutes(i)}}</p>
             </div>
-            <div class="pt-2 col-span-1">
-              <input *ngIf="indice === i" class="form-radio h-6 mx-[50%] w-6 text-indigo-600" type="radio"
-                (click)="DeleteTask($event, i)">
-            </div>
+            <span *ngIf="indice === i" (click)="DeleteTask($event, i)"class="right-5 w-auto h-auto flex justify-center top-0 pr-4 items-center transition-all ease-in-out duration-200">
+              <img src="assets/icons/borrar.png" class="w-[23px] h-[25px]">
+            </span>
           </li>
         </ul>
       </div>
