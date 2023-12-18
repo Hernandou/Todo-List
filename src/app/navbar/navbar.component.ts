@@ -10,12 +10,16 @@ import { CommonModule} from '@angular/common';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent{
-  isMobile:boolean = false;
- @HostBinding('class.flex-col') isCol:boolean = false;
+  burgerFlag:boolean = false;
 
 
-  detector(){
-    
+  changeBurgerFlag(){ 
+    if(this.burgerFlag){
+      this.burgerFlag = false;
+    }else{
+      this.burgerFlag = true;
+    }
+
   }
 
 
