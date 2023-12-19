@@ -1,31 +1,58 @@
 <div class="md:container md:min-w-full sm:w-full pr-0 bg-edb099 font-inter shadow-2xl text-white rounded-[30px] flex md:flex-col">
   <div class="col-span-1 p-4">
-    <div class="flex justify-between">    
-      <label class="block text-3xl pb-6 pt-2 font-medium pl-[13px]">Lista Rápida</label>
-      <button class="" (click) = "open()">
+    <div class="flex justify-between items-center">
+      <label class="block text-3xl pb-6 text-center pt-5 font-medium pl-[13px]">Lista Rápida</label>
+      <button class="flex items-middle" (click)="openAndClose()">
         <img src="assets/icons/balde.png" class="w-[33px] h-[33px]">
       </button>
-   </div> 
+    </div>
+    
+    <div class="transition-transform transform duration-500" 
+         [class.translate-y-0.duration-500]="button" 
+         [class.translate-y-full.duration-500]="!button"
+         *ngIf="button; else elseBlock" 
+         class="flex flex-wrap items-center justify-center h-auto mb-3">
+         
+      <div class="flex flex-col items-center justify-center gap-4 p-6 bg-white rounded-[50px] shadow-lg">
+        <span class="text-2xl font-extralight text-gray-700 mb-4">Elegí un color</span>
+        <div class="flex flex-wrap justify-center gap-4">
+          <div *ngFor="let color of colors(); let i = index" [class]="color" class="w-16 h-16 rounded-full p-4 cursor-pointer transition-transform transform hover:scale-110">
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <ng-template #elseBlock>
+      <!-- Contenido alternativo aquí -->
+    </ng-template>
+
     <div class="flex-shrink">
       <input type="text" [formControl]="FormCtrl" (keydown.enter)="newTasks()" id="nombre"
         class="w-full h-[53px] text-black px-6 bg-slate-200 rounded-[30px] focus:outline-none focus:border-blue-500"
         placeholder="Ingresá tus tareas aquí" />
     </div>
-    <p *ngIf="tasks().length === 0; else emptyTasks" class="text-start text-lg mt-4 pl-[15px] pb-4 font-light text">Lista vacía, nada que
-      mostrar por aquí</p>
+
+    <p *ngIf="tasks().length === 0; else emptyTasks" class="text-start text-lg mt-4 pl-[15px] pb-4 font-light text">
+      Lista vacía, nada que mostrar por aquí
+    </p>
+
     <ng-template #emptyTasks>
       <div class="md:container mt-5">
         <div class="grid grid-cols-2">
           <p class="text-sm font-bold pl-5">Nombre</p>
         </div>
         <ul class="divide-y divide-white list-none">
-          <li *ngFor="let task of tasks(); let i=index" class="py-4 flex flex-row  flex-nowrap justify-between relative" (mouseover)="showElement(i)" (mouseleave) = "hideElement()" >
+          <li *ngFor="let task of tasks(); let i=index" class="py-4 flex flex-row  flex-nowrap justify-between relative"
+            (mouseover)="showElement(i)" (mouseleave)="hideElement()">
             <div class="flex flex-col gap-3 mx-[15px] w-full" (click)="showHoursAndMinutes(i)">
               <p>{{ tasks()[i].taskname}}</p>
               <p>{{showHoursAndMinutes(i)}}</p>
             </div>
-            <span *ngIf="indice === i" (click)="DeleteTask($event, i)"class="w-auto h-auto flex-row top-0 pr-4 items-center transition ease-in duration-200 py-4">
-              <img src="assets/icons/borrar.png" class="w-[28px] h-[20px] md:w-[28px] md:h-[24px] sm:transition sm:-translate-y-[3px] sm:scale-125 hover:-translate-y-[3px] flex justify-center hover:scale-125 duration-500">
+            <span *ngIf="indice === i" (click)="DeleteTask($event, i)"
+              class="w-auto h-auto flex-row top-0 pr-4 items-center transition ease-in duration-200 py-4">
+              <img src="assets/icons/borrar.png"
+                class="w-[28px] h-[20px] md:w-[28px] md:h-[24px] sm:transition sm:-translate-y-[3px] sm:scale-125 hover:-translate-y-[3px] flex justify-center hover:scale-125 duration-500">
             </span>
           </li>
         </ul>

@@ -13,6 +13,18 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 export class TodolistComponent {
   indice:number = -1;
   button:boolean = false;
+  colors = signal([
+  'bg-pink-200',
+  'bg-blue-200',
+  'bg-green-200',
+  'bg-yellow-200',
+  'bg-purple-200',
+  'bg-orange-200',
+  'bg-indigo-200',
+  'bg-teal-200',
+  'bg-red-200',
+  'bg-cyan-200']);
+  colorChange:string = '';
 
   tasks = signal([{
       taskname: 'T1',
@@ -22,6 +34,7 @@ export class TodolistComponent {
 
   constructor(){
     //this.tasks().pop()
+
   }
 
   FormCtrl = new FormControl('',{
@@ -65,12 +78,14 @@ export class TodolistComponent {
       return(hours + ":" + minutes)
     }
   }
-  open(){
+  openAndClose(){
       if(this.button){
         this.button = false;
       }else{
         this.button = true;
       }
       return(this.button)
+  }
+  colorManager(){
   }
 }
