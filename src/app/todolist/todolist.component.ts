@@ -12,6 +12,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 export class TodolistComponent {
   indice:number = -1;
+  button:boolean = false;
 
   tasks = signal([{
       taskname: 'T1',
@@ -50,10 +51,8 @@ export class TodolistComponent {
   }
 
   DeleteTask(event : Event,i : number){
-    let checkbox = event.target as HTMLInputElement;
-    if(checkbox.checked == true){
-      this.tasks.update((tasks) => tasks.filter((_,posicion) => posicion !== i));
-    }
+    let input = event.target as HTMLInputElement;
+    this.tasks.update((tasks) => tasks.filter((_,posicion) => posicion !== i));
   }
 
   showHoursAndMinutes(i:number){
@@ -65,6 +64,13 @@ export class TodolistComponent {
     }else{
       return(hours + ":" + minutes)
     }
-
+  }
+  open(){
+      if(this.button){
+        this.button = false;
+      }else{
+        this.button = true;
+      }
+      return(this.button)
   }
 }
