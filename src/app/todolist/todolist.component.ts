@@ -86,6 +86,7 @@ export class TodolistComponent {
       }
       return(this.button)
   }
-  colorManager(){
+  colorManager(i:number){
+    this.colorChange = this.colors()[i];
   }
 }
