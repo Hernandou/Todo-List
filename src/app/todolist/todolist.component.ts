@@ -94,8 +94,14 @@ export class TodolistComponent {
     this.colorSelected.emit(color);
   }
 
+  editTask(event : Event,i:number){
+    let input = event.target as HTMLInputElement;
+    this.tasks()[i].taskname = input.value;
+  }
+
   getTextColor(){
     return(this.colorChange)
   }
+
 
 }

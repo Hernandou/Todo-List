@@ -12,7 +12,7 @@ import { TodolistComponent } from '../todolist/todolist.component';
 })
 export class NavbarComponent{
   burgerFlag:boolean = false;
-  @Input() colorFromTodoList:string = 'text-EDB009';
+  @Input() colorInput:string = 'text-EDB009';
   constructor(){
     
   }
@@ -26,7 +26,7 @@ export class NavbarComponent{
   }
 
   changeTitleColor(color: string){
-    this.colorFromTodoList = color;
+    this.colorInput = color;
   }
 
 }

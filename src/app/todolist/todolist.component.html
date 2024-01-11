@@ -34,8 +34,8 @@
         </div>
         <ul class="divide-y divide-white list-none">
           <li *ngFor="let task of tasks(); let i=index" class="py-4 flex flex-row  flex-nowrap justify-between relative"
-            (mouseover)="showElement(i)" (mouseleave)="hideElement()">
-            <div class="flex flex-col gap-3 mx-[15px] w-full" (click)="showHoursAndMinutes(i)">
+            (mouseover) = "showElement(i)" (mouseleave) = "hideElement()">
+            <div class="flex flex-col gap-3 mx-[15px] w-full"> <!-- arreglar -->
               <p>{{ tasks()[i].taskname}}</p>
               <p>{{showHoursAndMinutes(i)}}</p>
             </div>
