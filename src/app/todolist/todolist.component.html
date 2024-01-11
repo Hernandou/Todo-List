@@ -1,17 +1,29 @@
-<div [class] = 'colorChange' class="md:container [text-shadow:_0_2px_px_rgb(0_0_0_/_40%)] md:min-w-full sm:w-full pr-0 font-inter shadow-2xl text-white rounded-[30px] flex md:flex-col">
+<div [class]='colorChange' class="md:container [text-shadow:_0_2px_px_rgb(0_0_0_/_%40)] md:min-w-full sm:w-full pr-0 bg-edb099 font-inter shadow-2xl text-white rounded-[30px] flex md:flex-col">
   <div class="col-span-1 p-4">
     <div class="flex justify-between items-center">
       <label class="block text-3xl pb-6 text-center pt-5 font-medium pl-[13px]">Lista Rápida</label>
-      <button class="flex items-middle" (click)="openAndClose()">
+      <div class="flex justify-end items-center gap-6">
+        <button class="flex hover:bg-white p-3 hover:rounded-[30px] hover:text-black hover:transition ease-in hover:transition-duration-700" (click) = 'buttonsHandler("filters")'>Filtros</button>
+      <button class="flex items-middle" (click)="buttonsHandler('colorPalette')">
         <img src="assets/icons/balde.png" class="w-[33px] h-[33px]">
       </button>
     </div>
+    </div>
+
+    <div *ngIf="buttons.filters" class="w-full flex justify-around pb-4 transition ease-in-out transition-duration-700 rounded-[50px]">
+      <button class="hover:bg-white hover:text-black rounded-[50px] p-3 hover:transition-transform ease-in hover:transition-duration-700" (click) = 'filterHandler("all")'>Todas</button>
+      <button class="hover:bg-white hover:text-black rounded-[50px] p-3 hover:transition-transform ease-in hover:transition-duration-700" (click) = 'filterHandler("pending")'>Pendientes</button>
+      <button class="hover:bg-white hover:text-black rounded-[50px] p-3 hover:transition-transform ease-in hover:transition-duration-700" (click) = 'filterHandler("completed")'>Completados</button>
+    </div>
     
-    <div class="transition-transform transform duration-500" *ngIf="button" class="flex flex-wrap items-center justify-center h-auto mb-3">
+    <div class="transition-transform transform duration-500"
+         *ngIf="buttons.colorPalette" 
+         class="flex flex-wrap items-center justify-center h-auto mb-3">
+         
       <div class="flex flex-col items-center justify-center gap-4 p-6 bg-white rounded-[50px] shadow-lg">
         <span class="text-2xl font-extralight text-gray-700 mb-4">Elegí un color</span>
         <div class="flex flex-wrap justify-center gap-4">
-          <div *ngFor="let color of colors()" [class]="color" (click) = 'colorManager(color)' class="w-16 h-16 rounded-full p-4 cursor-pointer transition-transform transform hover:scale-110">
+          <div *ngFor="let color of colors(); let i = index" [class] = 'color' (click) = 'colorManager(i)' class="w-16 h-16 rounded-full p-4 cursor-pointer transition-transform transform hover:scale-110">
           </div>
         </div>
       </div>
@@ -23,20 +35,13 @@
         placeholder="Ingresá tus tareas aquí" />
     </div>
 
-    <p *ngIf="tasks().length === 0; else emptyTasks" class="text-start text-lg mt-4 pl-[15px] pb-4 font-light text">
-      Lista vacía, nada que mostrar por aquí
-    </p>
-
     <ng-template #emptyTasks>
       <div class="md:container mt-5">
-        <div class="grid grid-cols-2">
-          <p class="text-sm font-bold pl-5">Nombre</p>
-        </div>
         <ul class="divide-y divide-white list-none">
-          <li *ngFor="let task of tasks(); let i=index" class="py-4 flex flex-row  flex-nowrap justify-between relative"
-            (mouseover) = "showElement(i)" (mouseleave) = "hideElement()">
-            <div class="flex flex-col gap-3 mx-[15px] w-full"> <!-- arreglar -->
-              <p>{{ tasks()[i].taskname}}</p>
+          <li *ngFor="let task of tasksByFilter(); let i=index" class="py-4 flex flex-row  flex-nowrap justify-between relative"
+            (mouseover)="showElement(i)" (mouseleave)="hideElement()">
+            <div class="flex flex-col gap-3 mx-[15px] w-full" (click)="showHoursAndMinutes(i)">
+              <p>{{tasks()[i].taskname}}</p>
               <p>{{showHoursAndMinutes(i)}}</p>
             </div>
             <span *ngIf="indice === i" (click)="DeleteTask($event, i)"
@@ -48,5 +53,8 @@
         </ul>
       </div>
     </ng-template>
+    <p *ngIf="tasksByFilter().length === 0; else emptyTasks" class="text-start text-lg mt-4 pl-[15px] pb-4 font-light text">
+      Lista vacía, nada que mostrar por aquí
+    </p>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component,signal,EventEmitter, Output } from '@angular/core';
+import { Component,signal,computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -11,8 +11,13 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 })
 
 export class TodolistComponent {
+  // --- Declaraciones ---
   indice:number = -1;
-  button:boolean = false;
+  colorChange:string = ''
+  buttons = {'colorPalette': false,
+              'filters': false,      
+  };
+
   colors = signal([
   'bg-pink-300',
   'bg-blue-300',
@@ -25,18 +30,30 @@ export class TodolistComponent {
   'bg-red-300',
   'bg-cyan-300']);
 
-  colorChange:string = 'bg-EDB099';
-  @Output() colorSelected = new EventEmitter<string>();
-
   tasks = signal([{
       taskname: 'T1',
       date : new Date,
       completed: false
   }]);
 
+  filter = signal('all'); // Declaracion del filtro con valor por defecto 'all'
+
+  tasksByFilter = computed(() =>{
+    const filter = this.filter() // auxiliar del estado actual del filtro
+    const tasks = this.tasks() //auxiliar del estado actual de las Tasks 
+    let value:any = [];
+    if(filter === 'pending'){
+      value = tasks.filter(task => !task.completed) // filtra para cada tarea del array el estado de completado en 'falso'
+    }else if(filter === 'completed'){
+      value = tasks.filter(task => task.completed) // Filtra para cada tarea del array el estado de completado en 'true'
+    }else{
+      value = tasks
+    }
+    return value
+  })
+
   constructor(){
     //this.tasks().pop()
-
   }
 
   FormCtrl = new FormControl('',{
@@ -81,27 +98,32 @@ export class TodolistComponent {
     }
   }
 
-  openAndClose(){
-      if(this.button){
-        this.button = false;
-      }else{
-        this.button = true;
+  colorManager(i:number){
+    this.colorChange = this.colors()[i];
+  }
+
+  filterHandler(filter:string){
+    this.filter.set(filter);
+  }
+  
+  buttonsHandler(name : string){
+    let keys = Object.keys(this.buttons);
+    let nombre = keys.filter((key => key === name));
+    
+    switch(name){
+      case 'colorPalette': {
+        this.buttons.colorPalette = !this.buttons.colorPalette;
+        break;
       }
-      return(this.button)
+      case 'filters' : {
+        this.buttons.filters = !this.buttons.filters;
+        break;
+      }
+      default: {
+        console.log('no se encontro el boton ' + name)
+      }
+    }
+    
   }
-  colorManager(color:string){
-    this.colorChange = color
-    this.colorSelected.emit(color);
-  }
-
-  editTask(event : Event,i:number){
-    let input = event.target as HTMLInputElement;
-    this.tasks()[i].taskname = input.value;
-  }
-
-  getTextColor(){
-    return(this.colorChange)
-  }
-
-
+  
 }
