@@ -12,6 +12,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
   styleUrl: './anual-view.component.css'
 })
 export class AnualViewComponent {
-
+  todoTasks = [];
   
 }

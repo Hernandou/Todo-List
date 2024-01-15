@@ -15,6 +15,7 @@ export class TodolistComponent {
   // --- Declaraciones ---
 
   @Output() colorEmiter = new EventEmitter();
+  @Output() tasksEmiter = new EventEmitter();
 
   indice:number = -1;
   colorChange:string = ''
@@ -131,8 +132,9 @@ export class TodolistComponent {
     
   }
 
-  onDrop(event : any){
-    
+  emitChanges(){
+    let tasksConfirmed = this.tasks();
+    this.tasksEmiter.emit(tasksConfirmed);
   }
   
 }

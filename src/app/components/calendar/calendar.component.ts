@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 
 
 @Component({
@@ -11,6 +11,8 @@ import { Component } from '@angular/core';
 })
 
 export class CalendarComponent{
+
+  @Input() tasksFromTodo = [];
 
   date = new Date();
   months =[{
