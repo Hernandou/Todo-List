@@ -7,7 +7,8 @@ module.exports = {
         "EDB099" : '#EDB099',
         "FDFAFA" : '#FDFAFA',
         "ED5555": '#ED5555',
-        "E9E9E9" : '#E9E9E9'
+        "E9E9E9" : '#E9E9E9',
+        "FFD8B4" : '#FFD8B4'
       },
             
       fontFamily: {
