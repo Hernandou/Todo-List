@@ -1,6 +1,7 @@
-import { Component,Input} from '@angular/core';
+import { Component,Input, OnChanges, SimpleChanges, signal} from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { TodolistComponent } from '../todolist/todolist.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,20 +11,52 @@ import { TodolistComponent } from '../todolist/todolist.component';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent{
+
+export class NavbarComponent implements OnChanges{
   burgerFlag:boolean = false;
   @Input() colorInput:string = '';
 
+  
+  constructor(private router: Router){
+
+  }
+  
+
   changeBurgerFlag(){ 
-    if(this.burgerFlag){
-      this.burgerFlag = false;
-    }else{
-      this.burgerFlag = true;
-    }
+    console.log('Estado de la burgir: ',this.burgerFlag)
+    this.burgerFlag = !this.burgerFlag
+    return(this.burgerFlag);
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('Hola amigo') //Queda pendiente realizar el input del emitter
   }
 
-  changeTitleColor(color: string){
-    this.colorInput = color;
+  changeTitleColor(event : any){
+
+    //this.colorInput = color;
+  }
+
+  redirectTo(route:string, event: Event){
+    console.log('entra pero no hace nada')
+
+    switch(route){
+      case 'organizador': {
+        this.router.navigate(['/'+route])
+        break;
+      }
+
+      case 'recordatorios': {
+        this.router.navigate(['/'+route])
+        break;
+      }
+
+      case 'profile': {
+        this.router.navigate(['/'+route])
+        break;
+      }
+
+    }
+
   }
 
 }

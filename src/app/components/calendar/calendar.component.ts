@@ -1,21 +1,66 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
+
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [FullCalendarModule],
+  imports: [CommonModule],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css'
 })
 
 export class CalendarComponent{
-  calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
-    plugins: [dayGridPlugin]
-  };
+
+  date = new Date();
+  months =[{
+    name : 'Enero',
+    tasks : []
+  },{
+    name : 'Febrero',
+    tasks : []
+  },{
+    name : 'Marzo',
+    tasks : []
+  },{
+    name : 'Abril',
+    tasks : []
+  },{
+    name : 'Mayo',
+    tasks : []
+  },{
+    name : 'Junio',
+    tasks : []
+  },{
+    name : 'Julio',
+    tasks : []
+  },{
+    name : 'Agosto',
+    tasks : []
+  },{
+    name : 'Septiembre',
+    tasks : []
+  },{
+    name : 'Octubre',
+    tasks : []
+  },{
+    name : 'Noviembre',
+    tasks : []
+  },{
+    name : 'Diciembre',
+    tasks : []
+  }
+
+]
+
+  constructor(){
+  }
+
+  storageTask(){
+    
+
+
+  }
 
   
 

@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { TodolistComponent } from './components/todolist/todolist.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
+import { AnualViewComponent } from './components/Containers/anual-view/anual-view.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent,TodolistComponent,CalendarComponent],
+  imports: [CommonModule, RouterOutlet,AnualViewComponent],
   templateUrl: './app.component.html',
 })
 

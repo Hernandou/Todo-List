@@ -1,4 +1,4 @@
-<div [class]='colorChange' class="md:container [text-shadow:_0_2px_px_rgb(0_0_0_/_%40)] md:w-full sm:w-full pr-0 bg-edb099 font-inter shadow-2xl text-white rounded-[30px] flex md:flex-col">
+<div cdkDrag (cdkDropListDropped) = "onDrop($event)" [class]='colorChange' class="md:container [text-shadow:_0_2px_px_rgb(0_0_0_/_%40)] md:w-full sm:w-full pr-0 bg-edb099 font-inter shadow-2xl text-white rounded-[30px] flex md:flex-col">
   <div class="col-span-1 p-4">
     <div class="flex justify-between items-center">
       <label class="block text-3xl pb-6 text-center pt-5 font-medium pl-[13px]">Lista Rápida</label>

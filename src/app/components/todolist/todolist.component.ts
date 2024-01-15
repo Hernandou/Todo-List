@@ -1,6 +1,7 @@
-import { Component,signal,computed } from '@angular/core';
+import { Component,signal,computed, Output,EventEmitter} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-todolist',
@@ -12,6 +13,9 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 export class TodolistComponent {
   // --- Declaraciones ---
+
+  @Output() colorEmiter = new EventEmitter();
+
   indice:number = -1;
   colorChange:string = ''
   buttons = {'colorPalette': false,
@@ -100,6 +104,7 @@ export class TodolistComponent {
 
   colorManager(i:number){
     this.colorChange = this.colors()[i];
+    this.colorEmiter.emit(this.colorChange);
   }
 
   filterHandler(filter:string){
@@ -123,6 +128,10 @@ export class TodolistComponent {
         console.log('no se encontro el boton ' + name)
       }
     }
+    
+  }
+
+  onDrop(event : any){
     
   }
   
