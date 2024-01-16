@@ -8,14 +8,12 @@ module.exports = {
         "FDFAFA" : '#FDFAFA',
         "ED5555": '#ED5555',
         "E9E9E9" : '#E9E9E9',
-        "FFD8B4" : '#FFD8B4'
+        "FFD8B4" : '#FFD8B4',
       },
             
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],
       },
-      colors : {'edb099' : '#EDB099'},
-
       textShadow: {
         'xs': '0 1px 3px rgba(0, 0, 0, 0.3)',
         'sm': '0 1px 2px rgba(0, 0, 0, 0.3)',

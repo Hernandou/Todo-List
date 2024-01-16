@@ -8,7 +8,11 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   standalone: true,
   imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './todolist.component.html',
-  styleUrl: './todolist.component.css'
+  styles: `
+
+    
+
+  `
 })
 
 export class TodolistComponent {
@@ -17,8 +21,10 @@ export class TodolistComponent {
   @Output() colorEmiter = new EventEmitter();
   @Output() tasksEmiter = new EventEmitter();
 
+  checkBx = true;
+  textThrought = '';
   indice:number = -1;
-  colorChange:string = ''
+  colorChange:string = 'bg-EDB099'
   buttons = {'colorPalette': false,
               'filters': false,      
   };
@@ -26,6 +32,7 @@ export class TodolistComponent {
   colors = signal([
   'bg-pink-300',
   'bg-blue-300',
+  'bg-EDB099',
   'bg-green-300',
   'bg-yellow-300',
   'bg-purple-300',
@@ -56,10 +63,6 @@ export class TodolistComponent {
     }
     return value
   })
-
-  constructor(){
-    //this.tasks().pop()
-  }
 
   FormCtrl = new FormControl('',{
     // Validadores
@@ -104,6 +107,7 @@ export class TodolistComponent {
   }
 
   colorManager(i:number){
+    console.log(this.colors()[i])
     this.colorChange = this.colors()[i];
     this.colorEmiter.emit(this.colorChange);
   }
@@ -135,6 +139,15 @@ export class TodolistComponent {
   emitChanges(){
     let tasksConfirmed = this.tasks();
     this.tasksEmiter.emit(tasksConfirmed);
+  }
+  
+  checkedTask(event: Event, i: number) {
+    let input = event.target as HTMLInputElement;
+  
+    // Alternar el estado completado de la tarea
+    this.tasks()[i].completed = !this.tasks()[i].completed;
+    // Actualizar el estilo de tachado basado en el estado completado
+    this.textThrought = this.tasks()[i].completed ? 'line-through' : '';
   }
   
 }

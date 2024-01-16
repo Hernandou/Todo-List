@@ -51,12 +51,8 @@ export class CalendarComponent{
   },{
     name : 'Diciembre',
     tasks : []
-  }
+  }];
 
-]
-
-  constructor(){
-  }
 
   storageTask(){
     

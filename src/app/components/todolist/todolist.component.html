@@ -1,8 +1,8 @@
-<div [class]='colorChange' class="md:container [text-shadow:_0_2px_px_rgb(0_0_0_/_%40)] md:w-full sm:w-full pr-0 bg-edb099 font-inter shadow-2xl text-white rounded-[30px] flex md:flex-col">
+<div [class]='"md:container [text-shadow:_0_2px_px_rgb(0_0_0_/_%40)] md:w-full sm:w-full pr-0 font-inter shadow-2xl text-white rounded-[30px] flex md:flex-col "+ colorChange'>
   <div>
   <div class="col-span-1 p-4">
     <div class="flex justify-between items-center">
-      <label class="block text-3xl pb-6 text-center pt-5 font-medium pl-[13px]">Lista Rápida</label>
+      <label class="block text-3xl pb-6 text-center pt-5 font-medium pl-[13px]">Mi Lista</label>
       <div class="flex justify-end items-center gap-6">
         <button class="flex hover:bg-white p-3 hover:rounded-[30px] hover:text-black hover:transition ease-in hover:transition-duration-700" (click) = 'buttonsHandler("filters")'>Filtros</button>
       <button class="flex items-middle" (click)="buttonsHandler('colorPalette')">
@@ -24,7 +24,7 @@
       <div class="flex flex-col items-center justify-center gap-4 p-6 bg-white rounded-[50px] shadow-lg">
         <span class="text-2xl font-extralight text-gray-700 mb-4">Elegí un color</span>
         <div class="flex flex-wrap justify-center gap-4">
-          <div *ngFor="let color of colors(); let i = index" (click) = 'colorManager(i)' [class]='"w-16 h-16 rounded-full p-4 cursor-pointer transition-transform transform hover:scale-110 "+color'>
+          <div *ngFor="let color of colors(); let i = index" (click) = 'colorManager(i)' [class]='"w-16 h-16 rounded-full p-4 cursor-pointer transition-transform transform hover:scale-110 "+ color'>
           </div>
         </div>
       </div>
@@ -41,12 +41,20 @@
         <ul class="divide-y divide-white list-none">
           <li *ngFor="let task of tasksByFilter(); let i=index" class="py-4 flex flex-row  flex-nowrap justify-between relative"
             (mouseover)="showElement(i)" (mouseleave)="hideElement()">
-            <div class="flex flex-col gap-3 mx-[15px] w-full" (click)="showHoursAndMinutes(i)">
-              <p>{{tasks()[i].taskname}}</p>
-              <p>{{showHoursAndMinutes(i)}}</p>
+            
+            
+            <div (click) = "checkedTask($event,i)" class="flex justify-center items-center  opacity-0 hover:opacity-100">
+              <input type="radio" class="w-6 h-6 cursor-pointer">
             </div>
+            <div class="flex flex-col gap-3 w-full" (click)="showHoursAndMinutes(i)">
+              <p [class] = 'textThrought' id="task">{{tasks()[i].taskname}}</p>
+              <p>{{showHoursAndMinutes(i)}}</p>
+
+            </div>
+
             <span *ngIf="indice === i" (click)="DeleteTask($event, i)"
-              class="w-auto h-auto flex-row top-0 pr-4 items-center transition ease-in duration-200 py-4">
+              class="w-auto h-auto flex-row top-0 flex justify-center items-center transition hover:transition:ease-in-out delay-150 hover:scale-150
+              ">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="24" viewBox="0 0 256 256"><path fill="white" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/>
               </svg>
             </span>
@@ -59,7 +67,7 @@
     </p>
   </div>
   <div class="flex w-full p-2 justify-center items-center">
-  <button (click)="emitChanges()" class="bg-white rounded-[30px] w-full h-10 shadow-lg text-black font-medium">Guardar To-do</button>
+  <button *ngIf="tasks().length != 0" (click)="emitChanges()" class="bg-white rounded-[30px] w-full h-10 shadow-lg text-black font-medium">Guardar To-do</button>
   </div>
 </div>
 </div>
