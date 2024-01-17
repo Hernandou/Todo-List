@@ -37,9 +37,14 @@ export class NavbarComponent implements OnChanges{
   }
 
   redirectTo(route:string, event: Event){
-    console.log('entra pero no hace nada')
 
     switch(route){
+
+      case 'home':{
+        this.router.navigate(['/'+route]);
+        break;
+      }
+
       case 'organizador': {
         this.router.navigate(['/'+route])
         break;

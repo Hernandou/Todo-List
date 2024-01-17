@@ -2,15 +2,15 @@ import { Component,signal,computed, Output,EventEmitter} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'app-todolist',
   standalone: true,
   imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './todolist.component.html',
   styles: `
-
-    
+    #text{
+      text-decotarion: line-trough ;
+    }
 
   `
 })
@@ -70,7 +70,7 @@ export class TodolistComponent {
     validators : [Validators.required]
   })
 
-  newTasks() { //Recibe el evento
+  newTasks() { 
     if(this.FormCtrl.valid && this.FormCtrl.value.trim() !== ''){
       let newObj = {
       taskname: this.FormCtrl.value,
@@ -141,13 +141,18 @@ export class TodolistComponent {
     this.tasksEmiter.emit(tasksConfirmed);
   }
   
+  //Pendiente arreglar
   checkedTask(event: Event, i: number) {
     let input = event.target as HTMLInputElement;
   
+    if(!this.tasks()[i].completed){
     // Alternar el estado completado de la tarea
     this.tasks()[i].completed = !this.tasks()[i].completed;
     // Actualizar el estilo de tachado basado en el estado completado
     this.textThrought = this.tasks()[i].completed ? 'line-through' : '';
+    }else{
+      input.checked = false;
+    }
   }
   
 }

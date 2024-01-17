@@ -12,7 +12,7 @@ import { Component,Input } from '@angular/core';
 
 export class CalendarComponent{
 
-  @Input() tasksFromTodo = [];
+  @Input() tas:any;
 
   date = new Date();
   months =[{
@@ -53,13 +53,8 @@ export class CalendarComponent{
     tasks : []
   }];
 
-
-  storageTask(){
-    
-
-
+  ImprimirValor(){
+    console.log('aa'+this.tas)
   }
-
-  
 
 }
